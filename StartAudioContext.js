@@ -104,11 +104,13 @@
 	 * @param  {Function} callback
 	 */
 	function onStarted(context, callback){
-
+		var count = 0, maxCount = 2;
 		function checkLoop(){
+			count++;
 			if (isStarted(context)){
 				callback()
 			} else {
+				if(count >= maxCount) return;
 				requestAnimationFrame(checkLoop)
 				if (context.resume){
 					context.resume()
@@ -141,7 +143,7 @@
 			//if it's an element, create a TapListener
 			var tap = new TapListener(element, context)
 			tapListeners.push(tap)
-		} 
+		}
 	}
 
 	/**
